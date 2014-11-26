@@ -1,0 +1,66 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+    <context:component-scan base-package="com.training.spring.bean"/>
+    <context:annotation-config/>
+    <tx:annotation-driven/>
+    
+     <context:component-scan base-package="com.training.spring.service"/>
+    <context:annotation-config/>
+     <tx:annotation-driven/>
+     
+       <context:component-scan base-package="com.training.spring.dao"/>
+    <context:annotation-config/>
+     <tx:annotation-driven/>
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:./properties/resources.properties"/>
+
+    </bean>
+
+    <bean id="hello" class="com.training.spring.bean.Hello">
+        <constructor-arg type="java.lang.String">
+            <value>Hello Java by Constructor</value>
+        </constructor-arg>
+        <constructor-arg type="int">
+            <value>20</value>
+        </constructor-arg>
+        <property name="humen" ref="humen"/>
+    </bean>
+
+
+    <bean id="humen" name="humen" class="com.training.spring.bean.Humen">
+        <property name="firstName" value="${firstname}"/>
+        <property name="lastName" value="${lastname}"/>
+        <property name="hello" ref="hello"/>
+    </bean>
+
+        
+        
+    <!--  <bean id="examplecomponent" name="examplecomponent" class="com.training.spring.bean.ExampleComponent">
+        	<property name="message" value="aaa"/>
+        	<property name="hello" ref="hello"/>
+    </bean> -->
+        
+     
+
+</beans>
